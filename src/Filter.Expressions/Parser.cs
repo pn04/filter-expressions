@@ -63,7 +63,7 @@ public class Parser
                         state = State.N;
                         token.Value += c;
                     }
-                    else if (c == '"')
+                    else if (c == '"' || c == '\'')
                     {
                         state = State.String;
                         token.Type = TokenType.String;
@@ -188,13 +188,24 @@ public class Parser
                         token = new Token();
                         state = State.Start;
                     }
+                    else if (c == '=')
+                    {
+                        token.Type = TokenType.Identifier;
+                        tokens.Add(token);
+                        token = new Token();
+                        state = State.Start;
+                        token.Type = TokenType.Equals;
+                        token.Value = c.ToString();
+                        tokens.Add(token);
+                        token = new Token();
+                    }
                     else
                     {
                         token.Value += c;
                     }
                     break;
                 case State.String:
-                    if (c == '"')
+                    if (c == '"' || c == '\'')
                     {
                         token.Type = TokenType.String;
                         tokens.Add(token);
@@ -212,6 +223,7 @@ public class Parser
         return tokens;
     }
 }
+
 
 public class Token
 {

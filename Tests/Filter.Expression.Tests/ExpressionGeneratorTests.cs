@@ -40,13 +40,11 @@ public class ExpressionGeneratorTests
         Assert.Equal(expected.ToString(), result.ToString());
     }
 
-    // Write a test for BuildExpression<T>(string input) method, with input as Name = "John" OR ("Age = "20" AND Name = "Frank")
-
     [Fact]
     public void GetCompleteExpression_WhenCalledWithAString_ReturnsEqualsExpression()
     {
         //Arrange
-        var input = "Name = \"John\" OR (Age = \"20\" AND Name = \"Frank\")";
+        var input = "Name=\"John\" OR (Age=\"20\" AND Name=\"Frank\")";
         var generator = new ExpressionGenerator();
         //Act
         var result = generator.BuildExpression<Person>(input);
@@ -122,4 +120,6 @@ public class Person
 {
     public string Name { get; set; }
     public string Age { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
 }

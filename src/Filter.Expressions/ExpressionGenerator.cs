@@ -4,9 +4,16 @@ using System.Linq.Expressions;
 
 public class ExpressionGenerator
 {
+    private readonly Parser _parser;
+
+    public ExpressionGenerator()
+    {
+        _parser = new Parser();
+    }
+
     public Expression<Func<T, bool>> BuildExpression<T>(string input)
     {
-        var tokens = new Parser().Parse(input);
+        var tokens = _parser.Parse(input);
         return BuildExpression<T>(tokens);
     }
 
